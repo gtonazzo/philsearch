@@ -1,0 +1,89 @@
+﻿@model philsearch.Models.Articles
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<link rel="stylesheet" href="~/css/network.css" />
+
+
+<h2>Index</h2>
+
+<form asp-controller="Articles" asp-action="Index">
+    <p>
+        <textarea id="searchText" name="searchText" cols="40" rows="10"></textarea>
+        <br />
+        <input type="submit" value="Search" />
+    </p>
+</form>
+
+@if (Model != null)
+{
+    @if (Model.ArticlesList != null)
+    {
+        <table class="table">
+            <tbody>
+                @foreach (var item in Model.ArticlesList)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ArtId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Url)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                    </tr>
+                    @foreach (var author in item.Authors)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItemAuthors => author)
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    }
+}
+
+
+<svg id="networkSVG" width="900" height="900"></svg>
+
+<body>
+
+    <h3>Forza di repulsione</h3>
+
+    <div class="slidecontainer">
+        <input type="range" min="1" max="1000" value="100" class="slider" id="forceRange">
+        <p>Value: <span id="forceValue"></span></p>
+    </div>
+
+    <script>
+        var forceStrenght = 100;
+        var slider = document.getElementById("forceRange");
+        var output = document.getElementById("forceValue");
+        output.innerHTML = slider.value;
+        slider.oninput = function () {
+            output.innerHTML = this.value;
+            forceStrenght = this.value;
+            drawGraph();
+        }
+    </script>
+
+</body>
+
+
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v0.3.min.js"></script>
+<script src="~/js/network.js"></script>
+
+<script>
+    var data = @Json.Serialize(Model.ConceptsNetwork);
+    displayGraph(data);
+</script>
+
+
