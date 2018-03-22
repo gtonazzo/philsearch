@@ -10,6 +10,9 @@ namespace philsearch.Models
         public IEnumerable<SimilarArticles> SimilarArticlesList { get; set; }
         public IEnumerable<Article> ArticlesList { get; set; }
         public SemanticNetwork ConceptsNetwork { get; set; }
+        public IEnumerable<Category> Categories { get; set; }
+        public IEnumerable<Feature> Features { get; set; }
+        public IEnumerable<Reference> References { get; set; }
 
     }
 }

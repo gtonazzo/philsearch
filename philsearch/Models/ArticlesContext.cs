@@ -46,7 +46,7 @@ namespace philsearch.Models
                             list.Add(new Article()
                             {
                                 ArtId = reader["art_id"].ToString(),
-                                Title = reader["title"].ToString(),
+                                Title = reader["title"].ToString().Replace("?", ""),
                                 Abstract = reader["art_abstract"].ToString()
                             });
                         }
@@ -123,12 +123,12 @@ namespace philsearch.Models
                             Id = reader["biblio_id"].ToString(),
                             Year = reader["year"].ToString(),
                             Author = reader["author"].ToString(),
-                            Title = reader["title"].ToString(),
-                            Journal = reader["journal"].ToString(),
+                            Title = reader["title"].ToString().Replace("?",""),
+                            Journal = reader["journal"].ToString().Replace("?", ""),
                             Number = reader["number"].ToString(),
                             Volume = reader["volume"].ToString(),
                             Pages = reader["pages"].ToString(),
-                            Publisher = reader["publisher"].ToString()
+                            Publisher = reader["publisher"].ToString().Replace("?", "")
 
                         });
                     }

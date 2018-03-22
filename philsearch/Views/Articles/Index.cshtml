@@ -5,85 +5,237 @@
 }
 
 <link rel="stylesheet" href="~/css/network.css" />
+<link rel="stylesheet" href="~/css/tree.css" />
 
 
-<h2>Index</h2>
 
-<form asp-controller="Articles" asp-action="Index">
-    <p>
-        <textarea id="searchText" name="searchText" cols="40" rows="10"></textarea>
+<body>
+
+    <div class="container" style="text-align:center">
         <br />
-        <input type="submit" value="Search" />
-    </p>
-</form>
+        <br />
+        <p>The form below contains a textarea for comments:</p>
+        <form asp-controller="Articles" asp-action="Index">
+            <div class="form-group">
+                <label for="comment">Comment:</label>
+                <textarea class="form-control" rows="5" id="searchText" name="searchText"></textarea>
+                <input class="btn btn-default" type="submit" value="Search" />
+            </div>
+        </form>
+    </div>
 
-@if (Model != null)
-{
-    @if (Model.ArticlesList != null)
-    {
+
+
+
+    <div id="network">
+        <svg id="networkSVG" width="1800" height="1800"></svg>
+
+        <h3>Forza di repulsione</h3>
+
+        <div class="slidecontainer">
+            <input type="range" min="1" max="500" value="100" class="slider" id="forceRange">
+            <p>Value: <span id="forceValue"></span></p>
+        </div>
+
+        <script>
+            var forceStrenght = 100;
+            var slider = document.getElementById("forceRange");
+            var output = document.getElementById("forceValue");
+            output.innerHTML = slider.value;
+            slider.oninput = function () {
+                output.innerHTML = this.value;
+                forceStrenght = this.value;
+                drawGraph();
+            }
+        </script>
+
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+        <script src="https://d3js.org/d3-scale-chromatic.v0.3.min.js"></script>
+        <script src="~/js/network.js"></script>
+
+        @if (Model.ConceptsNetwork != null)
+        {
+            <script>
+                var data = @Json.Serialize(Model.ConceptsNetwork);
+                displayGraph(data);
+            </script>
+
+        }
+    </div>
+
+
+    <div id="categories">
         <table class="table">
             <tbody>
-                @foreach (var item in Model.ArticlesList)
+                @if (Model.Categories != null)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ArtId)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Url)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Title)
-                        </td>
-                    </tr>
-                    @foreach (var author in item.Authors)
+                    @foreach (var item in Model.Categories)
                     {
+
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItemAuthors => author)
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Frequency)
                             </td>
                         </tr>
+
                     }
                 }
             </tbody>
         </table>
-    }
-}
-
-
-<svg id="networkSVG" width="900" height="900"></svg>
-
-<body>
-
-    <h3>Forza di repulsione</h3>
-
-    <div class="slidecontainer">
-        <input type="range" min="1" max="1000" value="100" class="slider" id="forceRange">
-        <p>Value: <span id="forceValue"></span></p>
     </div>
 
-    <script>
-        var forceStrenght = 100;
-        var slider = document.getElementById("forceRange");
-        var output = document.getElementById("forceValue");
-        output.innerHTML = slider.value;
-        slider.oninput = function () {
-            output.innerHTML = this.value;
-            forceStrenght = this.value;
-            drawGraph();
-        }
-    </script>
+    <div id="tree">
 
+        <svg id="treeSVG"></svg>
+
+        <script src="~/js/tree.js"></script>
+        <script>
+            selectNode("All Philosophy");
+        </script>
+
+
+    </div>
+
+    <div id="articles">
+        <table class="table">
+            <tbody>
+                @if (Model != null)
+                {
+                    @if (Model.ArticlesList != null)
+                    {
+
+                        @foreach (var item in Model.ArticlesList)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ArtId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Url)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Title)
+                                </td>
+                            </tr>
+                            @foreach (var author in item.Authors)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItemAuthors => author)
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+                }
+
+            </tbody>
+        </table>
+    </div>
+
+
+
+    <div id="features">
+        <table class="table">
+            <tbody>
+                @if (Model.Features != null)
+                {
+                    @foreach (var item in Model.Features)
+                    {
+
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TfIdf)
+                            </td>
+                        </tr>
+
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div id="biblio">
+        <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
+        
+        <table id="biblioTable" class="display" style="width:100%">
+
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Author</th>
+                    <th>Year</th>
+                    <th>Title</th>
+                    <th>Journal</th>
+                    <th>Number</th>
+                    <th>Pages</th>
+                    <th>Publisher</th>
+                </tr>
+            </thead>
+            @if (Model.References != null)
+        {
+            @foreach (var item in Model.References)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Author)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Year)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Journal)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pages)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Number)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Publisher)
+                </td>
+            </tr>
+    }
+    }
+            <tfoot>
+                <tr>
+                    <th>Id</th>
+                    <th>Author</th>
+                    <th>Year</th>
+                    <th>Title</th>
+                    <th>Journal</th>
+                    <th>Number</th>
+                    <th>Pages</th>
+                    <th>Publisher</th>
+                </tr>
+            </tfoot>
+        </table>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#biblioTable').DataTable({
+                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+            });
+        });
+    </script>
 </body>
 
-
-<script src="https://d3js.org/d3.v4.min.js"></script>
-<script src="https://d3js.org/d3-scale-chromatic.v0.3.min.js"></script>
-<script src="~/js/network.js"></script>
-
-<script>
-    var data = @Json.Serialize(Model.ConceptsNetwork);
-    displayGraph(data);
-</script>
 
 

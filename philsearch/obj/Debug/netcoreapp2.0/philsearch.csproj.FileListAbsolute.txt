@@ -9,3 +9,5 @@ C:\Users\Administrator\source\repos\philsearch\philsearch\obj\Debug\netcoreapp2.
 C:\Users\Administrator\source\repos\philsearch\philsearch\bin\Debug\netcoreapp2.0\philsearch.pdb
 C:\Users\Administrator\source\repos\philsearch\philsearch\obj\Debug\netcoreapp2.0\philsearch.dll
 C:\Users\Administrator\source\repos\philsearch\philsearch\obj\Debug\netcoreapp2.0\philsearch.pdb
+C:\Users\Administrator\source\repos\philsearch\philsearch\bin\Debug\netcoreapp2.0\wwwroot\data\categories.json
+C:\Users\Administrator\source\repos\philsearch\philsearch\bin\Debug\netcoreapp2.0\appsettings.json

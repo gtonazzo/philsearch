@@ -15,6 +15,7 @@ namespace philsearch.Controllers
         public string search { get; set; }
     }
 
+    
     public class ArticlesController : Controller
     {
         
@@ -68,17 +69,21 @@ namespace philsearch.Controllers
             List<Article> articles = context.GetArticles(filter);
 
             Articles result = new Articles();
+
             result.SimilarArticlesList = artList;
             result.ArticlesList = articles;
             result.ConceptsNetwork = GetSemanticNetwork(searchText);
-            return result;
+            result.Categories = GetCategories(result.ArticlesList);
+            result.Features = GetFeatures(result.ArticlesList);
+            result.References = GetReferences(result.ArticlesList);
 
+            return result;
         }
 
         public SemanticNetwork GetSemanticNetwork(string searchText)
         {
 
-            SemanticNetwork semNet = new SemanticNetwork();
+            SemanticNetwork result = new SemanticNetwork();
 
             Search s = new Search();
             s.search = searchText;
@@ -93,13 +98,106 @@ namespace philsearch.Controllers
                 client.DefaultRequestHeaders.Accept.Add(contentType);
                 string stringData = JsonConvert.SerializeObject(s);
                 var contentData = new StringContent(stringData, System.Text.Encoding.UTF8, "application/json");
-                HttpResponseMessage response = client.PostAsync(webService, contentData).Result;   
-                semNet = JsonConvert.DeserializeObject<SemanticNetwork>(response.Content.ReadAsStringAsync().Result);
+                HttpResponseMessage response = client.PostAsync(webService, contentData).Result;
+                result = JsonConvert.DeserializeObject<SemanticNetwork>(response.Content.ReadAsStringAsync().Result);
 
             }
 
-            return semNet;
+            return result;
 
+        }
+
+        public List<Category> GetCategories(IEnumerable<Article> articles)
+        {
+            List<Category> result = new List<Category>();
+
+            foreach(Article art in articles)
+            {
+                foreach(String ac in art.Categories )
+                {
+                    bool add = true;
+                    foreach(Category c in result)
+                    {
+                        if(ac.Equals(c.Id) == true)
+                        {
+                            c.Frequency++;
+                            add = false;
+                        }
+                    }
+                    if (add == true)
+                    {
+                        Category nc = new Category();
+                        nc.Id = ac;
+                        nc.Frequency = 1;
+                        result.Add(nc);
+                    }
+                }
+            }
+            return result;
+        }
+
+        public List<Feature> GetFeatures(IEnumerable<Article> articles)
+        {
+            List<Feature> result = new List<Feature>();
+
+            foreach (Article art in articles)
+            {
+                foreach (Article.Feature af in art.Features)
+                {
+                    bool add = true;
+                    foreach (Feature f in result)
+                    {
+                        if (af.Id.Equals(f.Id) == true)
+                        {
+                            if (af.TfIdf > f.TfIdf) { f.TfIdf = af.TfIdf; }
+                            add = false;
+                        }
+                    }
+                    if (add == true)
+                    {
+                        Feature nf = new Feature();
+                        nf.Id = af.Id;
+                        nf.TfIdf = af.TfIdf;
+                        result.Add(nf);
+                    }
+                }
+            }
+            return result;
+        }
+
+        public List<Reference> GetReferences(IEnumerable<Article> articles)
+        {
+            List<Reference> result = new List<Reference>();
+
+            foreach (Article art in articles)
+            {
+                foreach (Article.Reference ar in art.References)
+                {
+                    bool add = true;
+                    foreach (Reference r in result)
+                    {
+                        if (ar.Id.Equals(r.Id) == true)
+                        {
+                            add = false;
+                        }
+                    }
+                    if (add == true)
+                    {
+                        Reference nr = new Reference();
+                        nr.Id = ar.Id;
+                        nr.Author = ar.Author;
+                        nr.Year = ar.Year;
+                        nr.Title = ar.Title;
+                        nr.Journal = ar.Journal;
+                        nr.Volume = ar.Volume;                        
+                        nr.Number = ar.Number;
+                        nr.Pages = ar.Pages;
+                        nr.Publisher = ar.Publisher;
+                        result.Add(nr);
+                    }
+                }
+            }
+            return result;
         }
     }
 }

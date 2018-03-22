@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using philsearch.Models;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace philsearch
 {
@@ -47,6 +49,13 @@ namespace philsearch
             }
 
             app.UseStaticFiles();
+
+            app.UseDirectoryBrowser(new DirectoryBrowserOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "data")),
+                RequestPath = "/data"
+            });
 
             app.UseMvc(routes =>
             {

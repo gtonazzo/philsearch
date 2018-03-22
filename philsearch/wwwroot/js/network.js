@@ -4,6 +4,7 @@ var svg;
 var color = d3.scaleOrdinal(d3.schemePastel1);
 var node, link;
 var d3graph;
+var simulation = d3.forceSimulation();
 
 function displayGraph(graph) {
 
@@ -16,7 +17,7 @@ function displayGraph(graph) {
         .selectAll("line")
         .data(graph.links)
         .enter().append("line")
-        .attr("stroke-width", function (d) { return Math.sqrt(d.value) / 4; });
+        .attr("stroke-width", function (d) { return Math.sqrt(d.value) ; });
 
     node = svg.append("g")
         .attr("class", "nodes")
@@ -50,8 +51,8 @@ function displayGraph(graph) {
 };
 
 function drawGraph() {
-
-    var simulation = d3.forceSimulation()
+    
+    simulation
         .force("link", d3.forceLink().id(function (d) { return d.id; }))
         .force("charge", d3.forceManyBody().strength(-forceStrenght))
         .force("center", d3.forceCenter(width / 2, height / 2));
