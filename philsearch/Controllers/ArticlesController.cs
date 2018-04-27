@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using philsearch.Models;
+using System.Text.RegularExpressions;
 
 namespace philsearch.Controllers
 {
@@ -40,8 +41,14 @@ namespace philsearch.Controllers
 
         private Articles SearchArticles(string searchText)
         {
+
+            Articles result = new Articles();
+
+            Regex rgx = new Regex("[^a-zA-Z0-9 ]");
+            String cleanText = rgx.Replace(searchText, " ");
+
             Search s = new Search();
-            s.search = searchText;
+            s.search = cleanText;
 
             ArticlesContext context = HttpContext.RequestServices.GetService(typeof(philsearch.Models.ArticlesContext)) as ArticlesContext;
             string webService = context.SearchArticlesWS;
@@ -58,24 +65,38 @@ namespace philsearch.Controllers
 
             }
 
+            result.SimilarArticlesList = artList;
+
+            List<Article> articles = new List<Article>();
+            foreach (SimilarArticles a in artList)
+            {
+                articles.Add(context.GetArticleInfo(a.Art_Id));
+            }
+
+            result.ArticlesList = articles;
+            result.Categories = GetCategories(result.ArticlesList);
+            result.Features = GetFeatures(result.ArticlesList);
+            result.References = GetReferences(result.ArticlesList);
+            /*
             string filter = "";
             foreach (SimilarArticles a in artList)
             {
                 if (filter.Length > 0) { filter = filter + ","; }
                 filter = filter + "'" + a.Art_Id + "'";
+                Article test = context.GetArticleInfo(a.Art_Id);
             }
-
-
+            
             List<Article> articles = context.GetArticles(filter);
 
-            Articles result = new Articles();
-
-            result.SimilarArticlesList = artList;
             result.ArticlesList = articles;
-            result.ConceptsNetwork = GetSemanticNetwork(searchText);
+            
             result.Categories = GetCategories(result.ArticlesList);
             result.Features = GetFeatures(result.ArticlesList);
             result.References = GetReferences(result.ArticlesList);
+            */
+
+            String concepts = GetNetworkConcepts(cleanText, result.Features);           
+            result.ConceptsNetwork = GetSemanticNetwork(concepts);
 
             return result;
         }
@@ -110,8 +131,8 @@ namespace philsearch.Controllers
         public List<Category> GetCategories(IEnumerable<Article> articles)
         {
             List<Category> result = new List<Category>();
-
-            foreach(Article art in articles)
+           
+            foreach (Article art in articles)
             {
                 foreach(String ac in art.Categories )
                 {
@@ -133,6 +154,8 @@ namespace philsearch.Controllers
                     }
                 }
             }
+            result.Sort();
+            result.Reverse();
             return result;
         }
 
@@ -149,7 +172,9 @@ namespace philsearch.Controllers
                     {
                         if (af.Id.Equals(f.Id) == true)
                         {
-                            if (af.TfIdf > f.TfIdf) { f.TfIdf = af.TfIdf; }
+                            // if (af.TfIdf > f.TfIdf) { f.TfIdf = af.TfIdf; }
+                            f.TfIdf += af.TfIdf;
+                            f.Frequency += 1;
                             add = false;
                         }
                     }
@@ -158,10 +183,13 @@ namespace philsearch.Controllers
                         Feature nf = new Feature();
                         nf.Id = af.Id;
                         nf.TfIdf = af.TfIdf;
+                        nf.Frequency = 1;
                         result.Add(nf);
                     }
                 }
             }
+            result.Sort();
+            result.Reverse();
             return result;
         }
 
@@ -198,6 +226,36 @@ namespace philsearch.Controllers
                 }
             }
             return result;
+        }
+
+        private string GetNetworkConcepts(string cleanText, IEnumerable<Feature> features)
+        {
+            string result = "";
+            String[] words = cleanText.Split(" ");
+            int wordCount = 0;
+            for (int i = 0; i < words.Length; i++)
+            {
+                if (words[i].Length > 2)
+                {
+                    wordCount++;
+                    if (result.Length > 0) { result = result + " "; }
+                    result = result + words[i];
+                }
+            }
+
+            if (wordCount > 4)
+            {
+                result = "";
+                for (int i = 0; i < 3; i++)
+                {
+                    if (result.Length > 0) { result = result + " "; }
+                    result = result + features.ElementAt(i).Id;
+                }
+
+            }
+
+            return result;
+
         }
     }
 }

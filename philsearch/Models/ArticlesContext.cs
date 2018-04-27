@@ -47,7 +47,12 @@ namespace philsearch.Models
                             {
                                 ArtId = reader["art_id"].ToString(),
                                 Title = reader["title"].ToString().Replace("?", ""),
-                                Abstract = reader["art_abstract"].ToString()
+                                Abstract = reader["art_abstract"].ToString(),
+                                PubYear = reader["pub_year"].ToString(),
+                                PubName = reader["pub_name"].ToString(),
+                                PubInfo = reader["pub_info"].ToString(),
+                                Url=reader["url"].ToString()
+
                             });
                         }
                     }
@@ -65,7 +70,127 @@ namespace philsearch.Models
             return list;
         }
 
-        public List<String> GetAuthors(string artId)
+
+        public Article GetArticleInfo(string artId)
+        {
+            Article result = new Article();
+
+            DataSet ds = new DataSet("ArticleInfo");
+            using (MySqlConnection conn = GetConnection())
+            {
+                conn.Open();
+                string query = "";
+                query = "Select * from articles Where art_id = '" + artId + "'; ";
+                query = query + "Select * from articles_authors Where art_id = '" + artId + "';";
+                query = query + "Select * from articles_categories Where art_id = '" + artId + "';";
+                query = query + "Select * from articles_features Where art_id = '" + artId + "';";
+                query = query + "Select a.art_id, b.* from articles_biblio a inner join biblio b on a.biblio_id = b.biblio_id Where art_id = '" + artId + "';";
+                MySqlCommand cmd = new MySqlCommand(query, conn);
+
+                using (MySqlDataAdapter sda = new MySqlDataAdapter(cmd))
+                {   /*
+                    MySqlCommand cmd = new MySqlCommand("usp_GetArticleInfo", conn);
+                    cmd.Parameters.AddWithValue("@artId", artId);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    */
+                    MySqlDataAdapter da = new MySqlDataAdapter();
+                    da.SelectCommand = cmd;
+                    da.Fill(ds);
+
+                    result = ReadArticleInfo(ds.Tables[0]);
+                    result.Authors = ReadAuthorsInfo(ds.Tables[1]);
+                    result.Categories = ReadCategoriesInfo(ds.Tables[2]);
+                    result.Features = ReadFeaturesInfo(ds.Tables[3]);
+                    result.References = ReadReferencesInfo(ds.Tables[4]);
+                }
+            }
+            return result;
+        }
+
+
+        private Article ReadArticleInfo(DataTable dt)
+        {
+            Article result = new Article();
+            foreach(DataRow row in dt.Rows)
+            {
+                result.ArtId = row["art_id"].ToString();
+                result.Title = row["title"].ToString().Replace("?", "");
+                result.Abstract = row["art_abstract"].ToString();
+                result.PubYear = row["pub_year"].ToString();
+                result.PubName = row["pub_name"].ToString();
+                result.PubInfo = row["pub_info"].ToString();
+                result.Url = row["url"].ToString();
+            };
+
+            return result;            
+            
+        }
+
+        private List<String> ReadAuthorsInfo(DataTable dt)
+        {
+            List<String> result = new List<String>();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                result.Add(row["author"].ToString());
+            };
+
+            return result;
+        }
+
+        private List<String> ReadCategoriesInfo(DataTable dt)
+        {
+            List<String> result = new List<String>();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                result.Add(row["category"].ToString());
+            };
+
+            return result;
+        }
+
+        private List<Article.Feature> ReadFeaturesInfo(DataTable dt)
+        {
+            List<Article.Feature> result = new List<Article.Feature>();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                result.Add(new Article.Feature()
+                {
+                    Id = row["feature"].ToString(),
+                    TfIdf = Convert.ToDouble(row["tfidf"])
+                });
+            };
+
+            return result;
+        }
+
+        private List<Article.Reference> ReadReferencesInfo(DataTable dt)
+        {
+            List<Article.Reference> result = new List<Article.Reference>();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                result.Add(new Article.Reference()
+                {
+                    Id = row["biblio_id"].ToString(),
+                    Year = row["year"].ToString(),
+                    Author = row["author"].ToString(),
+                    Title = row["title"].ToString().Replace("?", ""),
+                    Journal = row["journal"].ToString().Replace("?", ""),
+                    Number = row["number"].ToString(),
+                    Volume = row["volume"].ToString(),
+                    Pages = row["pages"].ToString(),
+                    Publisher = row["publisher"].ToString().Replace("?", "")
+
+                });                    
+            }
+
+            return result;
+        }
+
+        private List<String> GetAuthors(string artId)
         {
             List<String> list = new List<String>() { };
 
@@ -85,7 +210,7 @@ namespace philsearch.Models
             return list;
         }
 
-        public List<String> GetCategories(string artId)
+        private List<String> GetCategories(string artId)
         {
             List<String> list = new List<String>();
 
@@ -105,7 +230,7 @@ namespace philsearch.Models
             return list;
         }
 
-        public List<Article.Reference> GetReferences(string artId)
+        private List<Article.Reference> GetReferences(string artId)
         {
             List<Article.Reference> list = new List<Article.Reference>();
 
@@ -139,7 +264,7 @@ namespace philsearch.Models
 
 
 
-        public List<Article.Feature> GetFeatures(string artId)
+        private List<Article.Feature> GetFeatures(string artId)
         {
             List<Article.Feature> list = new List<Article.Feature>();
 

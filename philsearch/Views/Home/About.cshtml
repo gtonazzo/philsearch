@@ -1,9 +1,257 @@
 ﻿@{
     ViewData["Title"] = "About";
 }
-<h2>@ViewData["Title"]</h2>
-<h3>@ViewData["Message"]</h3>
 
 <body>
-    <p>Use this area to provide additional information.</p>
+    <br />
+    <div class="section">
+        <div class="container">
+            <div class="title-area">
+                <h5 class="subtitle text-gray">@ViewData["Title"]</h5>
+                <h2>@ViewData["Message"]</h2>
+                <div class="separator separator-danger">✻</div>
+            </div>
+
+            <div class="col-lg-12">
+                <div class="tab-content">
+                    <div class="tab-pane active" id="engine">
+                        <p class="description">
+                            The core of this website is a search engine that is able to
+                            <br />
+                            <br /> ✻ perform semantic search to identify the most relevant concepts and categories related to a research
+                            <br /> ✻ identify articles with similar content to the text searched
+                            <br /> ✻ automatically extract bibliographical references from the text of the articles
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <div class="section">
+        <div class="container">
+            <div class="title-area">
+                <h5 class="subtitle text-gray">Data</h5>
+                <h2>Knowledge base</h2>
+                <div class="separator separator-danger">✻</div>
+            </div>
+
+            <div class="tab-content">
+                <div class="tab-pane active" id="scrape">
+                    <div class="col-lg-12">
+                        <row>
+                            <div class="col-md-2">
+                                <a href="https://jsoup.org/" target="_blank">
+                                    <img class="image-clients" src="~/assets/img/Jsoup.png" />
+                                </a>
+                            </div>
+                            <div class="col-md-8">
+                                <p class="description">
+                                    <br />
+                                    The knowledge base is built from articles collected from the internet with Java library JSoup.
+                                    <br />
+                                    For each article information such as Author, Title, Year, Publisher/Journal and Abstract are saved in CSV files.
+                                </p>
+                            </div>
+                            <div class="col-md-2">
+                                <a href="https://en.wikipedia.org/wiki/Comma-separated_values" target="_blank">
+                                    <img class="image-clients" src="~/assets/img/CSV.png" />
+                                </a>
+                            </div>
+                        </row>
+                    </div>
+                </div>
+            </div>
+
+            <br /><br />
+            <div class="tab-pane active" id="etl">
+                <div class="col-md-12">
+                    <row>
+                        <div class="col-md-2">
+                            <br /><br />
+                            <a href="http://openrefine.org" target="_blank">
+                                <img class="image-clients" src="~/assets/img/OpenRefine1.png" />
+                            </a>
+                            <br /><br />
+                            <a href="https://java.com/" target="_blank">
+                                <img class="image-clients" src="~/assets/img/Java1.png" />
+                            </a>
+                            <br /><br />
+                            <a href="https://opennlp.apache.org" target="_blank">
+                                <img class="image-clients" src="~/assets/img/OpenNLP.png" />
+                            </a>
+                        </div>
+                        <div class="col-md-8">
+                            <p class="description">
+                                <br />
+                                This data is analyzed and cleaned using ETL tools such as Open Refine and Talend Open Studio for Data Integration and custom procedures written in Java and Python.
+                                <br />
+                                The cleaning process consists in identifying and removing duplicates, normalizing names, removing non UTF-8 charachters.
+                                <br />
+                                The language of the article is detected using Apache OpenNLP and only articles in English are considered.
+                                <br />
+                                Data is stored in a relational database (MySQL).
+                            </p>
+                        </div>
+                        <div class="col-md-2">
+                            <br />
+                            <a href="https://www.talend.com" target="_blank">
+                                <img class="image-clients" src="~/assets/img/Talend.png" />
+                            </a>
+                            <br /><br />
+                            <a href="https://www.python.org" target="_blank">
+                                <img class="image-clients" src="~/assets/img/Python.jpg" />
+                            </a>
+                            <br /><br />
+                            <a href="https://www.mysql.com" target="_blank">
+                                <img class="image-clients" src="~/assets/img/MySQL.png" />
+                            </a>
+                        </div>
+                    </row>
+                </div>
+            </div>
+
+            <br /><br /><br />
+            <div class="tab-pane active" id="biblio">
+                <div class="col-md-12">
+                    <row>
+                        <div class="col-md-2">
+                            <br /><br />
+                            <a href="https://pdfbox.apache.org/" target="_blank">
+                                <img class="image-clients" src="~/assets/img/PDFBox.png" />
+                            </a>
+                            <br /><br />
+                            <a href="https://www.heroku.com/" target="_blank">
+                                <img class="image-clients" src="~/assets/img/Heroku.png" />
+                            </a>
+                        </div>
+                        <div class="col-md-8">
+                            <p class="description">
+                                <br />
+                                When available, articles pdfs are dowloaded, text is extracted using Apache PDFBox and analyzed to identify bibliographical references.
+                                <br />
+                                References are identified by a custom procedure written in Java using regular expressions and heuristic rules and searched against various search engines to normalize the entry.
+                                <br />
+                                This search is perfomed by a webservice written in Python using Flask library.
+                                <br />
+                                The webservice is hosted by Heroku.
+                            </p>
+                        </div>
+                        <div class="col-md-2">
+                            <br />
+                            <a href="https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html" target="_blank">
+                                <img class="image-clients" src="~/assets/img/RegExp.png" />
+                            </a>
+                            <br />
+                            <a href="http://flask.pocoo.org/" target="_blank">
+                                <img class="image-clients" src="~/assets/img/Flask.png" />
+                            </a>
+                        </div>
+                    </row>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <div class="section">
+        <div class="container">
+            <div class="title-area">
+                <h5 class="subtitle text-gray">Analysis</h5>
+                <h2>Machine Learning</h2>
+                <div class="separator separator-danger">✻</div>
+            </div>
+
+            <div class="tab-content">
+                <div class="tab-pane active" id="models">
+                    <div class="col-lg-12">
+                        <row>
+                            <div class="col-md-2">
+                                <br />
+                                <a href="http://jupyter.org/" target="_blank">
+                                    <img class="image-clients" src="~/assets/img/Jupyter.png" />
+                                </a>
+                                <br /><br />
+                                <a href="https://radimrehurek.com/gensim/" target="_blank">
+                                    <img class="image-clients" src="~/assets/img/Gensim.jpg" />
+                                </a>
+                            </div>
+                            <div class="col-md-8">
+                                <p class="description">
+                                    After some text pre-processing (lowercasing, stopwords and punctuation removal, lemmatization with NLTK ), two models are built article's title + abastract
+                                </p>
+                                <ul>
+                                    <li>
+                                        <p class="description">
+                                            Word embedding model to find similiar concepts (<a href="https://en.wikipedia.org/wiki/Word2vec">Word2Vec</a> implemented in Python with Gensim)
+                                        </p>
+                                    </li>
+                                    <li class="description">
+                                        <p class="description">
+                                            <a href="https://en.wikipedia.org/wiki/Tf%E2%80%93idf">Tf-Idf</a> and <a href="https://en.wikipedia.org/wiki/Cosine_similarity">cosine similarity</a> to find similar articles (implemented with scikit-learn in Python)
+                                        </p>
+                                    </li>
+                                </ul>
+                                <p class="description">
+                                    Bigrams are considered in both models, so that frequently associated words represent a single concept (eg. social contract, incompleteness theorem)
+                                </p>
+                            </div>
+                            <div class="col-md-2">
+                                <br />
+                                <a href="https://www.nltk.org/" target="_blank">
+                                    <img class="image-clients" src="~/assets/img/NLTK.png" />
+                                </a>
+                                <br />
+                                <br />
+                                <a href="http://scikit-learn.org" target="_blank">
+                                    <img class="image-clients" src="~/assets/img/sklearn.png" />
+                                </a>
+                            </div>
+                        </row>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <div class="section">
+        <div class="container">
+            <div class="title-area">
+                <h5 class="subtitle text-gray"></h5>
+                <h2>Data visualization</h2>
+                <div class="separator separator-danger">✻</div>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane active" id="models">
+                    <div class="col-lg-12">
+                        <row>
+                            <div class="col-md-2">                              
+                                <a href="https://d3js.org/" target="_blank">
+                                    <img class="image-clients" src="~/assets/img/D3JS.png" />
+                                </a>
+                            </div>                           
+                            <div class="col-md-8">
+                                <p class="description">
+                                    <br />
+                                    JavaScript library D3.js is used to display the semantic network and the category tree.
+                                    <br />
+                                    The website is built with ASP.net Core 2.0 MVC.
+                                </p>
+
+                            </div>
+                            <div class="col-md-2">
+                                <a href="https://docs.microsoft.com/en-us/aspnet/core" target="_blank">
+                                    <br />
+                                    <img class="image-clients" src="~/assets/img/ASP.png" />
+                                </a>
+                            </div>
+                        </row>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>

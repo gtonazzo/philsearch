@@ -1,3 +1,5 @@
+C:\Users\Administrator\source\repos\philsearch\philsearch\bin\Release\netcoreapp2.0\wwwroot\data\categories.json
+C:\Users\Administrator\source\repos\philsearch\philsearch\bin\Release\netcoreapp2.0\appsettings.json
 C:\Users\Administrator\source\repos\philsearch\philsearch\bin\Release\netcoreapp2.0\philsearch.deps.json
 C:\Users\Administrator\source\repos\philsearch\philsearch\bin\Release\netcoreapp2.0\philsearch.runtimeconfig.json
 C:\Users\Administrator\source\repos\philsearch\philsearch\bin\Release\netcoreapp2.0\philsearch.runtimeconfig.dev.json
@@ -9,5 +11,3 @@ C:\Users\Administrator\source\repos\philsearch\philsearch\obj\Release\netcoreapp
 C:\Users\Administrator\source\repos\philsearch\philsearch\obj\Release\netcoreapp2.0\philsearch.AssemblyInfo.cs
 C:\Users\Administrator\source\repos\philsearch\philsearch\obj\Release\netcoreapp2.0\philsearch.dll
 C:\Users\Administrator\source\repos\philsearch\philsearch\obj\Release\netcoreapp2.0\philsearch.pdb
-C:\Users\Administrator\source\repos\philsearch\philsearch\bin\Release\netcoreapp2.0\appsettings.json
-C:\Users\Administrator\source\repos\philsearch\philsearch\bin\Release\netcoreapp2.0\wwwroot\data\categories.json

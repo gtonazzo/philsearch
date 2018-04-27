@@ -7,234 +7,310 @@
 <link rel="stylesheet" href="~/css/network.css" />
 <link rel="stylesheet" href="~/css/tree.css" />
 
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
 
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v0.3.min.js"></script>
+
+<script src="~/js/network.js"></script>
+<link rel='stylesheet' href='~/css/force-directed-graph.css'>
+
+<script src="~/js/d3v4-brush-lite.js"></script>
+<script src="~/js/force-directed-graph.js"></script>
+
+<style>
+    div.overflow {
+        overflow: auto;
+    }
+
+    div.table-padding {
+        padding: 40px;
+    }
+</style>
 
 <body>
 
-    <div class="container" style="text-align:center">
-        <br />
-        <br />
-        <p>The form below contains a textarea for comments:</p>
-        <form asp-controller="Articles" asp-action="Index">
-            <div class="form-group">
-                <label for="comment">Comment:</label>
-                <textarea class="form-control" rows="5" id="searchText" name="searchText"></textarea>
-                <input class="btn btn-default" type="submit" value="Search" />
+    <div id="sections" class="section">
+        <div class="container">
+            <div class="row">
+                <div class="title-area">
+                    <h2>Search</h2>
+                    <div class="separator separator-danger">✻</div>
+                    <p class="description">Insert text to search</p>
+                </div>
             </div>
-        </form>
-    </div>
-
-
-
-
-    <div id="network">
-        <svg id="networkSVG" width="1800" height="1800"></svg>
-
-        <h3>Forza di repulsione</h3>
-
-        <div class="slidecontainer">
-            <input type="range" min="1" max="500" value="100" class="slider" id="forceRange">
-            <p>Value: <span id="forceValue"></span></p>
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8">
+                    <form asp-controller="Articles" asp-action="Index">
+                        <div class="form-group" style="text-align:center">
+                            <textarea class="form-control" font-size="32px" rows="5" id="searchText" name="searchText"></textarea>
+                            <input class="btn btn-default" type="submit" value="Search" />
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-2"></div>
+            </div>
         </div>
-
-        <script>
-            var forceStrenght = 100;
-            var slider = document.getElementById("forceRange");
-            var output = document.getElementById("forceValue");
-            output.innerHTML = slider.value;
-            slider.oninput = function () {
-                output.innerHTML = this.value;
-                forceStrenght = this.value;
-                drawGraph();
-            }
-        </script>
-
-        <script src="https://d3js.org/d3.v4.min.js"></script>
-        <script src="https://d3js.org/d3-scale-chromatic.v0.3.min.js"></script>
-        <script src="~/js/network.js"></script>
-
-        @if (Model.ConceptsNetwork != null)
-        {
-            <script>
-                var data = @Json.Serialize(Model.ConceptsNetwork);
-                displayGraph(data);
-            </script>
-
-        }
     </div>
 
 
-    <div id="categories">
-        <table class="table">
-            <tbody>
-                @if (Model.Categories != null)
-                {
-                    @foreach (var item in Model.Categories)
+    <div id="sections" class="section">
+        <div class="container">
+            <div class="row">
+                <div class="title-area">
+                    <h2>Explore</h2>
+                    <div class="separator separator-danger">✻</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <a href="#force_directed_graph">
+                        <div class="info-icon">
+                            <div class="icon text-danger">
+                                <i class="pe-7s-graph1"></i>
+                            </div>
+                            <h3>Semantic network</h3>
+                            <p class="description">Graph displaying relevant concepts and their connections.</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="#categories">
+                        <div class="info-icon">
+                            <div class="icon text-danger">
+                                <i class="pe-7s-network"></i>
+                            </div>
+                            <h3>Categories</h3>
+                            <p class="description">Categorization in the complex structure of philosopical studies.</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="#articles">
+                        <div class="info-icon">
+                            <div class="icon text-danger">
+                                <i class="pe-7s-note2"></i>
+                            </div>
+                            <h3>Articles</h3>
+                            <p class="description">Relevant articles for the content of your resarch.</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a href="#references">
+                        <div class="info-icon">
+                            <div class="icon text-danger">
+                                <i class="pe-7s-study"></i>
+                            </div>
+                            <h3>References</h3>
+                            <p class="description">Bibliographical references extracted from the articles.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="container">
+            <div class="row">
+                <div class="title-area">
+                    <h2>Semantic network</h2>
+                    <div class="separator separator-danger">✻</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div align='center' id="force_directed_graph" style="width: 1200px; height: 1200px; margin: auto; margin-bottom: 12px">
+        <svg />
+    </div>
+    @if (Model.ConceptsNetwork != null)
+    {
+        <script>
+            var svg = d3.select('#force_directed_graph');
+            createV4SelectableForceDirectedGraph(svg, @Json.Serialize(Model.ConceptsNetwork))
+        </script>    
+    }
+
+
+    <div id="categories" class="section">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="title-area">
+                    <h2>Categories</h2>
+                    <div class="separator separator-danger">✻</div>             
+                </div>
+            </div>
+
+            <div id="categoriesList" class="row">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-10">
+                    @if (Model.Categories != null)
                     {
-
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Id)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Frequency)
-                            </td>
-                        </tr>
-
+                        @foreach (var item in Model.Categories)
+                        {
+                            <button type="button" onclick="selectNode(this.value)" class="btn btn-primary" value="@Html.DisplayFor(modelItem => item.Id)">@Html.DisplayFor(modelItem => item.Id) <span class="badge">@Html.DisplayFor(modelItem => item.Frequency)</span></button>
+                        }
                     }
-                }
-            </tbody>
-        </table>
+                </div>
+                <div class="col-sm-1"></div>
+            </div>
+            <div class="row">
+                <svg id="treeSVG" width="2000" height="800"></svg>
+                <script src="~/js/tree.js"></script>
+            </div>
+            <script>
+                selectNode("All Philosophy");
+            </script>
+        </div>
     </div>
 
-    <div id="tree">
-
-        <svg id="treeSVG"></svg>
-
-        <script src="~/js/tree.js"></script>
-        <script>
-            selectNode("All Philosophy");
-        </script>
-
-
-    </div>
-
-    <div id="articles">
-        <table class="table">
-            <tbody>
+    <div id="articles" class="section">
+        <div class="container-fluid  table-padding">
+            <div class="row">
+                <div class="title-area">
+                    <h2>Articles</h2>
+                    <div class="separator separator-danger">✻</div>                 
+                </div>
+            </div>
+            <table id="artsTable" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Authors</th>
+                        <th>Year</th>
+                        <th>Published in</th>
+                        <th>Link</th>
+                    </tr>
+                </thead>
                 @if (Model != null)
                 {
                     @if (Model.ArticlesList != null)
                     {
-
                         @foreach (var item in Model.ArticlesList)
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.ArtId)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Url)
-                                </td>
-                                <td>
                                     @Html.DisplayFor(modelItem => item.Title)
                                 </td>
-                            </tr>
-                            @foreach (var author in item.Authors)
-                            {
-                                <tr>
-                                    <td>
+                                <td>
+                                    @foreach (var author in item.Authors)
+                                    {
                                         @Html.DisplayFor(modelItemAuthors => author)
-                                    </td>
-                                </tr>
-                            }
+                                    }
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PubYear)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PubInfo)
+                                </td>
+                                <td>
+                                    <a href="@Html.DisplayFor(modelItem => item.Url)" class="btn btn-sm" target="_blank">Open</a>
+                                </td>
+                            </tr>
                         }
                     }
                 }
-
-            </tbody>
-        </table>
+                <tfoot>
+                    <tr>
+                        <th>Title</th>
+                        <th>Authors</th>
+                        <th>Year</th>
+                        <th>Publisher in</th>
+                        <th>Link</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <script>
+            $(document).ready(function () {
+                $('#artsTable').DataTable({
+                    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+                });
+            });
+        </script>
     </div>
 
 
-
-    <div id="features">
-        <table class="table">
-            <tbody>
-                @if (Model.Features != null)
+    <div id="references" class="section">
+        <div class="container-fluid table-padding">
+            <div class="row">
+                <div class="title-area">
+                    <h2>References</h2>
+                    <div class="separator separator-danger">✻</div>                   
+                </div>
+            </div>
+            <table id="biblioTable" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Year</th>
+                        <th>Journal</th>
+                        <th>Number</th>
+                        <th>Pages</th>
+                        <th>Publisher</th>
+                    </tr>
+                </thead>
+                @if (Model.References != null)
                 {
-                    @foreach (var item in Model.Features)
+                    @foreach (var item in Model.References)
                     {
-
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Id)
+                                @Html.DisplayFor(modelItem => item.Title)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.TfIdf)
+                                @Html.DisplayFor(modelItem => item.Author)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Year)
+                            </td>
+                            
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Journal)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Pages)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Number)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Publisher)
                             </td>
                         </tr>
-
                     }
                 }
-            </tbody>
-        </table>
-    </div>
-
-    <div id="biblio">
-        <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet" />
-        
-        <table id="biblioTable" class="display" style="width:100%">
-
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Author</th>
-                    <th>Year</th>
-                    <th>Title</th>
-                    <th>Journal</th>
-                    <th>Number</th>
-                    <th>Pages</th>
-                    <th>Publisher</th>
-                </tr>
-            </thead>
-            @if (Model.References != null)
-        {
-            @foreach (var item in Model.References)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Author)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Year)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Journal)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Pages)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Number)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Publisher)
-                </td>
-            </tr>
-    }
-    }
-            <tfoot>
-                <tr>
-                    <th>Id</th>
-                    <th>Author</th>
-                    <th>Year</th>
-                    <th>Title</th>
-                    <th>Journal</th>
-                    <th>Number</th>
-                    <th>Pages</th>
-                    <th>Publisher</th>
-                </tr>
-            </tfoot>
-        </table>
-
-    </div>
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-
-    <script>
-        $(document).ready(function () {
-            $('#biblioTable').DataTable({
-                "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+                <tfoot>
+                    <tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Year</th>
+                        <th>Journal</th>
+                        <th>Number</th>
+                        <th>Pages</th>
+                        <th>Publisher</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <script>
+            $(document).ready(function () {
+                $('#biblioTable').DataTable({
+                    "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]]
+                });
             });
-        });
-    </script>
+        </script>
+    </div>
+
 </body>
 
 

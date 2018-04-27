@@ -1,16 +1,32 @@
 ﻿
-
+var forceStrenght = 50;
 var svg;
 var color = d3.scaleOrdinal(d3.schemePastel1);
 var node, link;
 var d3graph;
 var simulation = d3.forceSimulation();
 
-function displayGraph(graph) {
-
+/*
     svg = d3.select("#networkSVG"),
         width = +svg.attr("width"),
         height = +svg.attr("height");
+    */
+// Set the dimensions and margins of the diagram
+var margin = { top: 20, right: 120, bottom: 120, left: 90 },
+    width = 1960 - margin.left - margin.right,
+    height = 1960 - margin.top - margin.bottom;
+
+function displayGraph(graph) {
+    
+
+    // append the svg object to the body of the page
+    // appends a 'group' element to 'svg'
+    // moves the 'group' element to the top left margin
+    var svg = d3.select("#networkSVG")
+        .attr("width", width + margin.right + margin.left)
+        .attr("height", height + margin.top + margin.bottom);
+
+
 
     link = svg.append("g")
         .attr("class", "links")
@@ -45,13 +61,15 @@ function displayGraph(graph) {
     node.append("title")
         .text(function (d) { return d.id; });
 
+    
     d3graph = graph;
     drawGraph();
-
+ 
 };
 
-function drawGraph() {
 
+function drawGraph() {
+    
     simulation
         .force("link", d3.forceLink().id(function (d) { return d.id; }))
         .force("charge", d3.forceManyBody().strength(-forceStrenght))
@@ -78,6 +96,7 @@ function drawGraph() {
 
     }
 }
+
 
 
 function dragstarted(d) {
