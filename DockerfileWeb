@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:2.1-sdk AS builder
+FROM microsoft/dotnet:2.0-sdk AS builder
 WORKDIR /appsrc
 COPY . .
 #Replace DOS new line with unix new line. Otherwise script will not run if it was written on windows machine.
