@@ -1,0 +1,416 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAANFhAgioBEEuxpq1oCxbdjQAAAAACAAAAAAAQZgAAAAEAACAAAABdBZNgeICkdINbEt6QI8pyGFZH2HG06P1PgQ4/qS5mTwAAAAAOgAAAAAIAACAAAAAbIQ9FlOTiHmhSBsfRT8acoYCxRWcqz8jZogQ7oOp4/iAAAAAlW9+qYakpujAFwMA070SczzlzrbmAm5hj8TU2rYehZkAAAADiz6WMZfOR6acuTnRJRoLr4dLrayyXcIkle9LrHx2IZvg7N6EUi4AmIjjOdfVdFUOECTqX+eegdDAZX9mfb7DA</EncryptedPassword>
+    <_PublishTargetUrl>ftp://ftp-eu.site4now.net/philosophy</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="appsettings.Development.json">
+      <publishTime>03/17/2018 12:15:56</publishTime>
+    </File>
+    <File Include="appsettings.json">
+      <publishTime>04/30/2018 00:58:51</publishTime>
+    </File>
+    <File Include="bundleconfig.json">
+      <publishTime>03/17/2018 12:15:56</publishTime>
+    </File>
+    <File Include="dotnet-aspnet-codegenerator-design.dll">
+      <publishTime>03/07/2018 10:08:27</publishTime>
+    </File>
+    <File Include="Microsoft.CodeAnalysis.CSharp.Workspaces.dll">
+      <publishTime>03/07/2018 10:08:51</publishTime>
+    </File>
+    <File Include="Microsoft.CodeAnalysis.Workspaces.dll">
+      <publishTime>03/07/2018 10:08:28</publishTime>
+    </File>
+    <File Include="Microsoft.VisualStudio.Web.CodeGeneration.Contracts.dll">
+      <publishTime>03/07/2018 10:08:27</publishTime>
+    </File>
+    <File Include="Microsoft.VisualStudio.Web.CodeGeneration.Core.dll">
+      <publishTime>03/07/2018 10:08:27</publishTime>
+    </File>
+    <File Include="Microsoft.VisualStudio.Web.CodeGeneration.dll">
+      <publishTime>03/07/2018 10:08:27</publishTime>
+    </File>
+    <File Include="Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore.dll">
+      <publishTime>03/07/2018 10:08:27</publishTime>
+    </File>
+    <File Include="Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll">
+      <publishTime>03/07/2018 10:08:27</publishTime>
+    </File>
+    <File Include="Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll">
+      <publishTime>03/07/2018 10:08:27</publishTime>
+    </File>
+    <File Include="Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll">
+      <publishTime>03/07/2018 10:08:27</publishTime>
+    </File>
+    <File Include="MySql.Data.dll">
+      <publishTime>01/18/2018 08:59:04</publishTime>
+    </File>
+    <File Include="Newtonsoft.Json.dll">
+      <publishTime>02/18/2018 09:44:54</publishTime>
+    </File>
+    <File Include="NuGet.Frameworks.dll">
+      <publishTime>03/07/2018 10:08:31</publishTime>
+    </File>
+    <File Include="philsearch.deps.json">
+      <publishTime>08/16/2018 18:35:51</publishTime>
+    </File>
+    <File Include="philsearch.dll">
+      <publishTime>08/16/2018 18:35:46</publishTime>
+    </File>
+    <File Include="philsearch.pdb">
+      <publishTime>08/16/2018 18:35:46</publishTime>
+    </File>
+    <File Include="philsearch.PrecompiledViews.dll">
+      <publishTime>08/16/2018 18:35:49</publishTime>
+    </File>
+    <File Include="philsearch.PrecompiledViews.pdb">
+      <publishTime>08/16/2018 18:35:49</publishTime>
+    </File>
+    <File Include="philsearch.runtimeconfig.json">
+      <publishTime>08/16/2018 18:35:51</publishTime>
+    </File>
+    <File Include="runtimes/win/lib/netstandard2.0/System.Security.Cryptography.ProtectedData.dll">
+      <publishTime>07/19/2017 10:01:34</publishTime>
+    </File>
+    <File Include="System.Composition.AttributedModel.dll">
+      <publishTime>03/07/2018 10:08:31</publishTime>
+    </File>
+    <File Include="System.Composition.Convention.dll">
+      <publishTime>03/07/2018 10:08:32</publishTime>
+    </File>
+    <File Include="System.Composition.Hosting.dll">
+      <publishTime>03/07/2018 10:08:32</publishTime>
+    </File>
+    <File Include="System.Composition.Runtime.dll">
+      <publishTime>03/07/2018 10:08:32</publishTime>
+    </File>
+    <File Include="System.Composition.TypedParts.dll">
+      <publishTime>03/07/2018 10:08:32</publishTime>
+    </File>
+    <File Include="System.Configuration.ConfigurationManager.dll">
+      <publishTime>07/19/2017 10:01:30</publishTime>
+    </File>
+    <File Include="System.Security.Cryptography.ProtectedData.dll">
+      <publishTime>07/19/2017 10:01:34</publishTime>
+    </File>
+    <File Include="System.Security.Permissions.dll">
+      <publishTime>07/19/2017 10:01:30</publishTime>
+    </File>
+    <File Include="web.config">
+      <publishTime>08/16/2018 18:35:51</publishTime>
+    </File>
+    <File Include="wwwroot/assets/css/.DS_Store">
+      <publishTime>03/19/2018 17:16:54</publishTime>
+    </File>
+    <File Include="wwwroot/assets/css/bootstrap.css">
+      <publishTime>03/19/2018 17:16:54</publishTime>
+    </File>
+    <File Include="wwwroot/assets/css/demo.css">
+      <publishTime>03/19/2018 17:16:54</publishTime>
+    </File>
+    <File Include="wwwroot/assets/css/fonts/.DS_Store">
+      <publishTime>03/19/2018 17:16:54</publishTime>
+    </File>
+    <File Include="wwwroot/assets/css/fonts/pe-icon-7-stroke.css">
+      <publishTime>03/19/2018 17:16:54</publishTime>
+    </File>
+    <File Include="wwwroot/assets/css/gaia.css">
+      <publishTime>03/19/2018 18:38:05</publishTime>
+    </File>
+    <File Include="wwwroot/assets/fonts/.DS_Store">
+      <publishTime>03/19/2018 17:16:54</publishTime>
+    </File>
+    <File Include="wwwroot/assets/fonts/Glyphicons/glyphicons-halflings-regular.eot">
+      <publishTime>03/19/2018 17:16:54</publishTime>
+    </File>
+    <File Include="wwwroot/assets/fonts/Glyphicons/glyphicons-halflings-regular.svg">
+      <publishTime>03/19/2018 17:16:54</publishTime>
+    </File>
+    <File Include="wwwroot/assets/fonts/Glyphicons/glyphicons-halflings-regular.ttf">
+      <publishTime>03/19/2018 17:16:54</publishTime>
+    </File>
+    <File Include="wwwroot/assets/fonts/Glyphicons/glyphicons-halflings-regular.woff">
+      <publishTime>03/19/2018 17:16:54</publishTime>
+    </File>
+    <File Include="wwwroot/assets/fonts/Pe-Icon-Stroke/Pe-icon-7-stroke.eot">
+      <publishTime>03/19/2018 17:16:54</publishTime>
+    </File>
+    <File Include="wwwroot/assets/fonts/Pe-Icon-Stroke/Pe-icon-7-stroke.svg">
+      <publishTime>03/19/2018 17:16:54</publishTime>
+    </File>
+    <File Include="wwwroot/assets/fonts/Pe-Icon-Stroke/Pe-icon-7-stroke.ttf">
+      <publishTime>03/19/2018 17:16:54</publishTime>
+    </File>
+    <File Include="wwwroot/assets/fonts/Pe-Icon-Stroke/Pe-icon-7-stroke.woff">
+      <publishTime>03/19/2018 17:16:55</publishTime>
+    </File>
+    <File Include="wwwroot/assets/img/.DS_Store">
+      <publishTime>03/19/2018 17:16:55</publishTime>
+    </File>
+    <File Include="wwwroot/assets/img/apple-icon.png">
+      <publishTime>03/19/2018 17:16:55</publishTime>
+    </File>
+    <File Include="wwwroot/assets/img/arrow-left.cur">
+      <publishTime>03/19/2018 17:16:55</publishTime>
+    </File>
+    <File Include="wwwroot/assets/img/arrow-left.png">
+      <publishTime>03/19/2018 17:16:55</publishTime>
+    </File>
+    <File Include="wwwroot/assets/img/arrow-right.cur">
+      <publishTime>03/19/2018 17:16:55</publishTime>
+    </File>
+    <File Include="wwwroot/assets/img/arrow-right.png">
+      <publishTime>03/19/2018 17:16:55</publishTime>
+    </File>
+    <File Include="wwwroot/assets/img/ASP.png">
+      <publishTime>04/26/2018 20:50:30</publishTime>
+    </File>
+    <File Include="wwwroot/assets/img/CSV.png">
+      <publishTime>04/27/2018 21:51:12</publishTime>
+    </File>
+    <File Include="wwwroot/assets/img/D3JS.png">
+      <publishTime>04/26/2018 20:58:45</publishTime>
+    </File>
+    <File Include="wwwroot/assets/img/favicon.ico">
+      <publishTime>03/19/2018 17:16:55</publishTime>
+    </File>
+    <File Include="wwwroot/assets/img/favicon.png">
+      <publishTime>03/19/2018 17:16:55</publishTime>
+    </File>
+    <File Include="wwwroot/assets/img/Flask.png">
+      <publishTime>04/26/2018 20:49:25</publishTime>
+    </File>
+    <File Include="wwwroot/assets/img/Gensim.jpg">
+      <publishTime>04/09/2018 16:55:46</publishTime>
+    </File>
+    <File Include="wwwroot/assets/img/Gensim.png">
+      <publishTime>04/26/2018 20:47:25</publishTime>
+    </File>
+    <File Include="wwwroot/assets/img/header-1.jpeg">
+      <publishTime>02/02/2018 17:02:59</publishTime>
+    </File>
+    <File Include="wwwroot/assets/img/Heroku.png">
+      <publishTime>04/26/2018 20:51:02</publishTime>
+    </File>
+    <File Include="wwwroot/assets/img/Java.png">
+      <publishTime>04/27/2018 21:50:51</publishTime>
+    </File>
+    <File Include="wwwroot/assets/img/Java1.png">
+      <publishTime>04/27/2018 22:02:51</publishTime>
+    </File>
+    <File Include="wwwroot/assets/img/JavaScript.png">
+      <publishTime>04/26/2018 20:58:04</publishTime>
+    </File>
+    <File Include="wwwroot/assets/img/Jsoup.png">
+      <publishTime>04/26/2018 21:21:28</publishTime>
+    </File>
+    <File Include="wwwroot/assets/img/Jupyter.png">
+      <publishTime>04/26/2018 21:09:53</publishTime>
+    </File>
+    <File Include="wwwroot/assets/img/mask.png">
+      <publishTime>03/19/2018 17:16:55</publishTime>
+    </File>
+    <File Include="wwwroot/assets/img/MySQL.png">
+      <publishTime>04/26/2018 20:52:06</publishTime>
+    </File>
+    <File Include="wwwroot/assets/img/NLTK.png">
+      <publishTime>04/27/2018 22:40:13</publishTime>
+    </File>
+    <File Include="wwwroot/assets/img/OpenNLP.png">
+      <publishTime>04/26/2018 20:48:46</publishTime>
+    </File>
+    <File Include="wwwroot/assets/img/OPENRefine.png">
+      <publishTime>04/26/2018 20:54:26</publishTime>
+    </File>
+    <File Include="wwwroot/assets/img/OpenRefine1.png">
+      <publishTime>04/26/2018 22:21:20</publishTime>
+    </File>
+    <File Include="wwwroot/assets/img/pattern.png">
+      <publishTime>03/19/2018 17:16:55</publishTime>
+    </File>
+    <File Include="wwwroot/assets/img/PDFBox.png">
+      <publishTime>04/27/2018 22:14:58</publishTime>
+    </File>
+    <File Include="wwwroot/assets/img/Python.jpg">
+      <publishTime>04/09/2018 16:56:06</publishTime>
+    </File>
+    <File Include="wwwroot/assets/img/Python.png">
+      <publishTime>04/26/2018 20:56:20</publishTime>
+    </File>
+    <File Include="wwwroot/assets/img/RegExp.png">
+      <publishTime>04/26/2018 23:16:01</publishTime>
+    </File>
+    <File Include="wwwroot/assets/img/Sklearn.png">
+      <publishTime>04/26/2018 20:48:10</publishTime>
+    </File>
+    <File Include="wwwroot/assets/img/Talend.png">
+      <publishTime>04/26/2018 20:52:42</publishTime>
+    </File>
+    <File Include="wwwroot/assets/img/Talend2.png">
+      <publishTime>04/26/2018 23:17:00</publishTime>
+    </File>
+    <File Include="wwwroot/assets/js/.DS_Store">
+      <publishTime>03/19/2018 17:16:55</publishTime>
+    </File>
+    <File Include="wwwroot/assets/js/gaia.js">
+      <publishTime>03/19/2018 17:16:55</publishTime>
+    </File>
+    <File Include="wwwroot/assets/js/modernizr.js">
+      <publishTime>03/19/2018 17:16:56</publishTime>
+    </File>
+    <File Include="wwwroot/css/force-directed-graph.css">
+      <publishTime>03/28/2018 15:19:19</publishTime>
+    </File>
+    <File Include="wwwroot/css/network.css">
+      <publishTime>03/17/2018 17:49:15</publishTime>
+    </File>
+    <File Include="wwwroot/css/site.css">
+      <publishTime>03/17/2018 12:15:57</publishTime>
+    </File>
+    <File Include="wwwroot/css/site.min.css">
+      <publishTime>03/17/2018 12:15:57</publishTime>
+    </File>
+    <File Include="wwwroot/css/tree.css">
+      <publishTime>03/20/2018 19:55:09</publishTime>
+    </File>
+    <File Include="wwwroot/data/categories.json">
+      <publishTime>03/19/2018 21:34:51</publishTime>
+    </File>
+    <File Include="wwwroot/favicon.ico">
+      <publishTime>03/17/2018 12:15:57</publishTime>
+    </File>
+    <File Include="wwwroot/images/banner1.svg">
+      <publishTime>03/17/2018 12:15:57</publishTime>
+    </File>
+    <File Include="wwwroot/images/banner2.svg">
+      <publishTime>03/17/2018 12:15:57</publishTime>
+    </File>
+    <File Include="wwwroot/images/banner3.svg">
+      <publishTime>03/17/2018 12:15:57</publishTime>
+    </File>
+    <File Include="wwwroot/images/banner4.svg">
+      <publishTime>03/17/2018 12:15:57</publishTime>
+    </File>
+    <File Include="wwwroot/js/d3v4-brush-lite.js">
+      <publishTime>03/28/2018 15:17:05</publishTime>
+    </File>
+    <File Include="wwwroot/js/force-directed-graph.js">
+      <publishTime>03/29/2018 22:07:47</publishTime>
+    </File>
+    <File Include="wwwroot/js/network.js">
+      <publishTime>03/29/2018 21:20:07</publishTime>
+    </File>
+    <File Include="wwwroot/js/site.js">
+      <publishTime>03/22/2018 23:04:33</publishTime>
+    </File>
+    <File Include="wwwroot/js/site.min.js">
+      <publishTime>03/22/2018 22:41:17</publishTime>
+    </File>
+    <File Include="wwwroot/js/tree.js">
+      <publishTime>04/06/2018 09:38:12</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/.bower.json">
+      <publishTime>03/17/2018 12:15:57</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-theme.css">
+      <publishTime>03/17/2018 12:15:57</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-theme.css.map">
+      <publishTime>03/17/2018 12:15:57</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-theme.min.css">
+      <publishTime>03/17/2018 12:15:57</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-theme.min.css.map">
+      <publishTime>03/17/2018 12:15:57</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap.css">
+      <publishTime>03/17/2018 12:15:57</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap.css.map">
+      <publishTime>03/17/2018 12:15:57</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap.min.css">
+      <publishTime>03/17/2018 12:15:57</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap.min.css.map">
+      <publishTime>03/17/2018 12:15:57</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/fonts/glyphicons-halflings-regular.eot">
+      <publishTime>03/17/2018 12:15:57</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/fonts/glyphicons-halflings-regular.svg">
+      <publishTime>03/17/2018 12:15:57</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf">
+      <publishTime>03/17/2018 12:15:57</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/fonts/glyphicons-halflings-regular.woff">
+      <publishTime>03/17/2018 12:15:57</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2">
+      <publishTime>03/17/2018 12:15:57</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/js/bootstrap.js">
+      <publishTime>03/17/2018 12:15:57</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/js/bootstrap.min.js">
+      <publishTime>03/17/2018 12:15:57</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/js/npm.js">
+      <publishTime>03/17/2018 12:15:57</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/LICENSE">
+      <publishTime>03/17/2018 12:15:57</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation-unobtrusive/.bower.json">
+      <publishTime>03/17/2018 12:15:57</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js">
+      <publishTime>03/17/2018 12:15:58</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js">
+      <publishTime>03/17/2018 12:15:58</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation/.bower.json">
+      <publishTime>03/17/2018 12:15:58</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation/dist/additional-methods.js">
+      <publishTime>03/17/2018 12:15:58</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation/dist/additional-methods.min.js">
+      <publishTime>03/17/2018 12:15:58</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation/dist/jquery.validate.js">
+      <publishTime>03/17/2018 12:15:58</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation/dist/jquery.validate.min.js">
+      <publishTime>03/17/2018 12:15:58</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation/LICENSE.md">
+      <publishTime>03/17/2018 12:15:58</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery/.bower.json">
+      <publishTime>03/17/2018 12:15:58</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery/dist/jquery.js">
+      <publishTime>03/17/2018 12:15:58</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery/dist/jquery.min.js">
+      <publishTime>03/17/2018 12:15:58</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery/dist/jquery.min.map">
+      <publishTime>03/17/2018 12:15:58</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery/LICENSE.txt">
+      <publishTime>03/17/2018 12:15:58</publishTime>
+    </File>
+  </ItemGroup>
+</Project>

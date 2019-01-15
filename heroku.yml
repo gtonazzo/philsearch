@@ -1,0 +1,15 @@
+build:
+  docker:
+    web: DockerfileWeb
+    webbuilder:
+      dockerfile: DockerfileWeb
+      target: builder
+run:
+  web:
+    image: web
+    command:
+      - /bin/bash -c "cd src/Webapp/bin/Release/netcoreapp2.1/publish/ && ASPNETCORE_URLS=http://*:$PORT dotnet Webapp.dll"
+release:
+  image: webbuilder
+  command:
+    - if [ ! -f scripts/release-phase.sh ]; then exit; fi && . scripts/release-phase.sh
